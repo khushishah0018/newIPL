@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.wecp.progressive.entity.Team;
 import com.wecp.progressive.service.TeamService;
-
+@Service
 public class TeamServiceImplArraylist implements TeamService {
 
     private List<Team> teamList = new ArrayList<>();
