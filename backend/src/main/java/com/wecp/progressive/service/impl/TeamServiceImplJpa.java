@@ -1,4 +1,3 @@
-
 package com.wecp.progressive.service.impl;
 
 import com.wecp.progressive.entity.Team;
@@ -39,6 +38,9 @@ public class TeamServiceImplJpa  implements TeamService {
 
     @Override
     public int addTeam(Team team) throws SQLException {
+       if(teamRepository.existsById(team.getTeamId())){
+        throw new TeamAlreadyExistsException("Team already exists.");
+       }
         return teamRepository.save(team).getTeamId();
     }
 
@@ -51,12 +53,17 @@ public class TeamServiceImplJpa  implements TeamService {
 
     @Override
     public Team getTeamById(int teamId) throws SQLException {
-        return teamRepository.findByTeamId(teamId);
+        return teamRepository.findById(teamId).orElseThrow(()-> new TeamDoesNotExistException("Team doenot exists"));
     }
 
     @Override
     public void updateTeam(Team team) throws SQLException {
-        teamRepository.save(team);
+     Team tm=  teamRepository.findByTeamName(team.getTeamName());
+     if(tm != null)
+     {
+        throw new TeamAlreadyExistsException("Team already exists.");
+     }   
+     teamRepository.save(team);
     }
 
     @Override

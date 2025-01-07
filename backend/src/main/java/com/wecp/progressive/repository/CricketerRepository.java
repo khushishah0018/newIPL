@@ -21,4 +21,6 @@ public interface CricketerRepository extends JpaRepository<Cricketer, Integer> {
     @Transactional
     @Query("DELETE FROM Cricketer c WHERE c.team.teamId = :teamId")
     void deleteByTeamId(@Param("teamId") int teamId);
+
+    long countByTeam_TeamId(int teamId);
 }
