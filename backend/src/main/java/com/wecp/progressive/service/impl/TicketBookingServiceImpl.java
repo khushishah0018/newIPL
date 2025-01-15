@@ -1,6 +1,5 @@
 package com.wecp.progressive.service.impl;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,28 +10,29 @@ import com.wecp.progressive.repository.TicketBookingRepository;
 import com.wecp.progressive.service.TicketBookingService;
 
 @Service
-public class TicketBookingServiceImpl implements TicketBookingService {
+public class TicketBookingServiceImpl implements TicketBookingService{
 
-@Autowired
-private TicketBookingRepository ticketBookingRepository;
+    @Autowired
+    private TicketBookingRepository ticketBookingRepository;
 
-public List<TicketBooking> getAllTicketBookings() throws SQLException
-{
-    return ticketBookingRepository.findAll();
-}
-public int createBooking(TicketBooking ticketBooking) throws SQLException
-{
-    return ticketBookingRepository.save(ticketBooking).getBookingId();
-}
-public void cancelBooking(int bookingId) throws SQLException
-{
-    if(ticketBookingRepository.existsById(bookingId))
-    {
+    @Override
+    public List<TicketBooking> getAllTicketBookings() {
+        return ticketBookingRepository.findAll();
+    }
+
+    @Override
+    public int createBooking(TicketBooking ticketBooking) {
+        return ticketBookingRepository.save(ticketBooking).getBookingId();
+    }
+
+    @Override
+    public void cancelBooking(int bookingId) {
         ticketBookingRepository.deleteById(bookingId);
     }
-}
-public List<TicketBooking> getBookingsByUserEmail(String Email) throws SQLException
-{
-    return ticketBookingRepository.findByEmail(Email);
-}
+
+    @Override
+    public List<TicketBooking> getBookingsByUserEmail(String email) {
+        return ticketBookingRepository.findByEmail(email);
+    }
+
 }

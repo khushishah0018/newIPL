@@ -1,6 +1,7 @@
 package com.wecp.progressive.service;
 
 import com.wecp.progressive.entity.Team;
+import com.wecp.progressive.exception.TeamAlreadyExistsException;
 
 import java.sql.SQLException;
 import java.util.List;
